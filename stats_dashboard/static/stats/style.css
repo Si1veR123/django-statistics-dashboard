@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    overflow-x: hidden;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+}
+
+li {
+    margin: 0 2vw;
+    padding: 0.75em 0;
+    transition: background-color .3s;
+    cursor: pointer;
+    border-radius: .3em;
+}
+
+li:nth-child(odd) {
+    background-color: rgba(255, 150, 100, 0.05);
+}
+
+li:hover {
+    background-color: rgba(255, 150, 100, 0.3);
+    border-radius: 0.3em;
+}
+
+.panel {
+    width: 90%;
+    height: 50vh;
+    text-align: center;
+    margin: 2vh 5vw;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: rgba(255, 150, 50, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+#navbar {
+    height: 7.5vh;
+    width: 80vw;
+    background-image: linear-gradient(to right, coral, coral, orange);
+    display: flex;
+    padding: 0 10vw;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#navbar p {
+    font-size: 4vh;
+    font-family: "Lucida Console", Sans-serif;
+    color: white;
+}
+
+.option {
+    height: 7.5vh;
+    display: inline;
+    transition: transform .2s;
+    cursor: pointer;
+}
+
+.option:hover {
+    transform: scale(1.15);
+}
+
+#reset-browser-filter {
+    height: 1.5rem;
+    display: inline;
+    top: 0;
+    position: absolute;
+    transition: transform .2s;
+}
+
+#reset-browser-filter:hover {
+    transform: rotate(20deg);
+}
+
+#reset-browser-filter:active {
+    transform: rotate(360deg);
+}
+
+#chart-grid {
+    border-radius: 5px;
+    background-color: rgba(255, 150, 50, 0.1);
+    width: 90%;
+    margin-left: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.chart-title {
+    text-align: center;
+}
+
+.chart-container {
+    border-radius: 5px;
+    width: 70vw;
+    margin: 2vh 0;
+    padding: 0 1em 1em 1em;
+    background-color: rgba(255, 150, 50, 0.2);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+#chart-grid canvas {
+    width: 100%;
+}

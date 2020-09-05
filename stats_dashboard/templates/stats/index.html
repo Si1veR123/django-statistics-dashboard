@@ -1,0 +1,98 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stats</title>
+    <link rel="stylesheet" href="{% static '/stats/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="navbar">
+    <p>Django Stats</p>
+    <div>
+        <img onclick="toGraphPage()" class="option" src="{% static '/stats/graph.svg' %}">
+        <img onclick="toListPage()" class="option" src="{% static '/stats/list.svg' %}">
+    </div>
+</div>
+
+<div id="list-page">
+    <h1 style="text-align: center;">Session List</h1>
+    <div class="panel" id="sessions-panel">
+        <h2 style="margin: 0.7em;">Browser Sessions</h2>
+        <hr>
+        <form onchange="filterBrowserSessions(event)">
+            <span>From: </span>
+            <input type="date" name="start">
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>To: </span>
+            <input type="date" name="end">
+            <span style="position: relative; margin-left: 0.5rem; cursor: pointer;" onclick="resetBrowserFilter(event)">
+                <img id="reset-browser-filter" src="{% static '/stats/reload.svg' %}">
+            </span>
+        </form>
+        <hr>
+        <p style="margin: 0; color: black; opacity: 0.4; font-size: 0.6em;">Times are UTC</p>
+        <div style="overflow-y: scroll; height: calc(50vh - 8em);">
+            <ul>
+                {% for b in browser_sessions.all %}
+                <li
+                    onclick="changePageSession('{{ b.token }}')"
+                    data-ip="{{ b.ip }}"
+                    data-browser="{{ b.browser }}"
+                    data-device="{{ b.device }}"
+                    data-time="{{ b.start_time|date:'Y-m-d' }}"
+                >{{ b.start_time }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel" id="pages-panel">
+        <h2 style="margin: 0.7em;">Pages Visited</h2>
+        <hr>
+        <div style="overflow-y: scroll; height: calc(50vh - 2.7em); position: relative;">
+            {% for b in browser_sessions.all %}
+                <ul style="position: absolute; top: 0; left: 0; opacity: 0;" data-browser-uuid="{{ b.token }}">
+                    {% for page in b.pagesession_set.all %}
+                        <li onclick="changeActions('{{ page.id }}')">
+                            {{ page.page }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="panel" id="actions-panel">
+        <h2 style="margin: 0.7em;">Page Actions</h2>
+        <hr>
+        <div style="overflow-y: scroll; height: calc(50vh - 2.7em); position: relative;">
+            {% for b in browser_sessions.all %}
+                {% for page in b.pagesession_set.all %}
+                    <ul style="position: absolute; top: 0; left: 0; opacity: 0;" data-page-id="{{ page.id }}">
+                        {% for action in page.pageevent_set.all %}
+                            <li>
+                                {{ action.type }}: {{ action.info }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div id="graph-page" style="display: none;">
+    <h1 style="text-align: center;">Charts</h1>
+    <div id="chart-grid">
+
+    </div>
+</div>
+
+<script src="{% static 'stats/chart.js' %}"></script>
+<script src="{% static 'stats/dashboard.js' %}"></script>
+</body>
+</html>
