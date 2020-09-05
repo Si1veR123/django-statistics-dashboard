@@ -1,7 +1,8 @@
 # Django Stats Dashboard
 
 A dashboard to display captured metrics and charts, such as devices, pages visited, 
-and page actions. Staff user is required to get chart data and view dashboard.
+and page actions. Staff user is required to get chart data and view dashboard. Dashboard is at
+/(statsurl), usually /stats.
 
 ## Setup
 
@@ -56,6 +57,7 @@ and page actions. Staff user is required to get chart data and view dashboard.
 
 6. Add the urls in urls.py
     ```python
+    import stats_dashboard.urls
     urlpatterns = [
        path("stats/", include(stats_dashboard.urls)),
     ]
@@ -105,9 +107,9 @@ The flow for creating charts is:
    Values should be calculated from your own data.
    This file is run on each request to the chart dashboard, do that the data can be retrieved
    from models.  
-   For scatter graphs, data should be set in this format:
+   For scatter graphs, data should be set in this format, with ScatterDataset:
    ```python
-    ChartDataset(values=[
+    ScatterDataset(values=[
            {"x": 1, "y": 3},
            {"x": 2, "y": 4},
            {"x": 3, "y": 5}
