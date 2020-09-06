@@ -1,5 +1,7 @@
 # Django Stat Dashboard
 
+![Chart](https://github.com/Si1veR123/django-statistics-dashboard/raw/master/images/chart.JPG)
+
 A dashboard to display captured metrics and charts, such as devices, pages visited, 
 and page actions. Staff user is required to get chart data and view dashboard. Dashboard is at
 /(statsurl), usually /stats.
