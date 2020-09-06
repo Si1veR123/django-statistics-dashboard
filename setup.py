@@ -5,12 +5,12 @@ desc_text = desc.read()
 desc.close()
 
 setup(
-    name="random_test_because_testpypi_isnt_working2",
+    name="django-statistics-dashboard",
     version="0.1",
     description="A stats dashboard and session tracker for Django.",
     long_description=desc_text,
     long_description_content_type="text/markdown",
-    url="https://github.com/Si1veR123/django-stat-dashboard",
+    url="https://github.com/Si1veR123/django-statistics-dashboard",
     author="Connor George",
     author_email="connorgeorgeem@aol.com",
     license="MIT",
