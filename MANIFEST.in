@@ -1,0 +1,2 @@
+recursive-include stats_dashboard/templates *
+recursive-include stats_dashboard/static *

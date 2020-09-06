@@ -1,3 +1,6 @@
 *.pyc
 __pycache__/
 migrations/
+build/
+dist/
+*.egg-info

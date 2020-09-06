@@ -1,4 +1,4 @@
-# Django Stats Dashboard
+# Django Stat Dashboard
 
 A dashboard to display captured metrics and charts, such as devices, pages visited, 
 and page actions. Staff user is required to get chart data and view dashboard. Dashboard is at
@@ -152,5 +152,9 @@ Another is `common_pages`, abar chart showing most visited pages.
 statistic_charts.add_chart(visits_time(58400, "hour", style=my_style))
 statistic_charts.add_chart(browser_share(type="pie"))
 ```
+
+### Other Info
+3 Models, BroswerSession, PageSession and PageEvent is available at stats_dashboard.models.
+These can be used to retrieve tracked user activity.
 
 Please report any issues!

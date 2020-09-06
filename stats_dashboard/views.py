@@ -102,6 +102,11 @@ def config(request):
         "click": [],
     }
 
+    try:
+        settings.STATS_PAGE_CONFIG
+    except AttributeError:
+        return JsonResponse(config_for_path)
+
     for re_path, configs in settings.STATS_PAGE_CONFIG.items():
         if re_path == "*" or re.match(re_path, path):
             for config_name, config_value in configs.items():
