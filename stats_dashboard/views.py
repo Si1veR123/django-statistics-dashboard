@@ -32,6 +32,9 @@ def activity(request: HttpRequest):
         response["Allow"] = "POST"
         return response
 
+    if not settings.STAT_TRACK_IN_DEBUG and settings.DEBUG:
+        return HttpResponse()
+
     data = json.loads(request.body)
 
     # get all pages with a foreign key to the current browser session

@@ -159,4 +159,6 @@ statistic_charts.add_chart(browser_share(type="pie"))
 3 Models, BroswerSession, PageSession and PageEvent is available at stats_dashboard.models.
 These can be used to retrieve tracked user activity.
 
+`STAT_TRACK_IN_DEBUG = False` will disable tracking activity with debug on.
+
 Please report any issues!
