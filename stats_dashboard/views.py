@@ -32,7 +32,7 @@ def activity(request: HttpRequest):
         response["Allow"] = "POST"
         return response
 
-    if not settings.STAT_TRACK_IN_DEBUG and settings.DEBUG:
+    if not settings.get("STAT_TRACK_IN_DEBUG", default=True) and settings.DEBUG:
         return HttpResponse()
 
     data = json.loads(request.body)
