@@ -1,17 +1,5 @@
-{
-    let scriptEl = document.createElement("script");
-    scriptEl.setAttribute("src", "https://unpkg.com/axios/dist/axios.min.js");
-    let body = document.getElementsByTagName("body")[0];
-    body.appendChild(scriptEl);
-}
 
-let dataRoot = document.currentScript.getAttribute("data-root");
 var root;
-if (dataRoot === null) {
-    root = "/stats/"
-} else {
-    root = dataRoot
-}
 
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
@@ -41,6 +29,20 @@ function sendActivity(data) {
 }
 
 function newPage() {
+    {
+        let scriptEl = document.createElement("script");
+        scriptEl.setAttribute("src", "https://unpkg.com/axios/dist/axios.min.js");
+        let body = document.getElementsByTagName("body")[0];
+        body.appendChild(scriptEl);
+    }
+
+    let dataRoot = document.currentScript.getAttribute("data-root");
+    if (dataRoot === null) {
+        root = "/stats/"
+    } else {
+        root = dataRoot
+    }
+
     axios.get(root + "config/?page=" + window.location.pathname)
     .then((response) => {
         const config = response.data;
