@@ -1,4 +1,4 @@
-
+const current = document.currentScript;
 var root;
 
 function setCookie(cname, cvalue, exdays) {
@@ -29,39 +29,39 @@ function sendActivity(data) {
 }
 
 function newPage() {
-    {
-        let scriptEl = document.createElement("script");
-        scriptEl.setAttribute("src", "https://unpkg.com/axios/dist/axios.min.js");
-        let body = document.getElementsByTagName("body")[0];
-        body.appendChild(scriptEl);
-    }
+    let scriptEl = document.createElement("script");
+    scriptEl.setAttribute("src", "https://unpkg.com/axios/dist/axios.min.js");
+    let body = document.getElementsByTagName("body")[0];
+    body.appendChild(scriptEl);
+    scriptEl.addEventListener("load", () => {
+        let dataRoot = current.getAttribute("data-root");
+        
+        if (dataRoot === null) {
+            root = "/stats/"
+        } else {
+            root = dataRoot
+        }
 
-    let dataRoot = document.currentScript.getAttribute("data-root");
-    if (dataRoot === null) {
-        root = "/stats/"
-    } else {
-        root = dataRoot
-    }
+        axios.get(root + "config/?page=" + window.location.pathname)
+        .then((response) => {
+            const config = response.data;
+            sendActivity({type: "navigate", info: window.location.pathname}).then(function() {
+                if (getCookie("c3RhdHZpZXdlZA") === "") {
+                    sendActivity({type: "new_to_website", info: true});
+                    setCookie("c3RhdHZpZXdlZA", "1", 365);
+                } else {
+                    sendActivity({type: "new_to_website", info: false});
+                }
 
-    axios.get(root + "config/?page=" + window.location.pathname)
-    .then((response) => {
-        const config = response.data;
-        sendActivity({type: "navigate", info: window.location.pathname}).then(function() {
-            if (getCookie("c3RhdHZpZXdlZA") === "") {
-                sendActivity({type: "new_to_website", info: true});
-                setCookie("c3RhdHZpZXdlZA", "1", 365);
-            } else {
-                sendActivity({type: "new_to_website", info: false});
-            }
-
-            // add event listeners for click
-            for (let click of config.click) {
-                let el = document.querySelector(click.selector);
-                el.statsName = click.name;
-                el.addEventListener("click", function(evt) {
-                    sendActivity({type: "click", info: evt.target.statsName})
-                });
-            }
+                // add event listeners for click
+                for (let click of config.click) {
+                    let el = document.querySelector(click.selector);
+                    el.statsName = click.name;
+                    el.addEventListener("click", function(evt) {
+                        sendActivity({type: "click", info: evt.target.statsName})
+                    });
+                }
+            })
         })
     })
 }

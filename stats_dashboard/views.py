@@ -32,7 +32,11 @@ def activity(request: HttpRequest):
         response["Allow"] = "POST"
         return response
 
-    if not settings.get("STAT_TRACK_IN_DEBUG", default=True) and settings.DEBUG:
+    try:
+        track_in_debug = settings.STAT_TRACK_IN_DEBUG
+    except AttributeError:  
+        track_in_debug = True
+    if not track_in_debug and settings.DEBUG:
         return HttpResponse()
 
     data = json.loads(request.body)

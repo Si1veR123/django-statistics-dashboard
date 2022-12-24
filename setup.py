@@ -6,7 +6,7 @@ desc.close()
 
 setup(
     name="django-statistics-dashboard",
-    version="0.3",
+    version="0.4",
     description="A stats dashboard and session tracker for Django.",
     long_description=desc_text,
     long_description_content_type="text/markdown",
